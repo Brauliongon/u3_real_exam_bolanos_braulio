@@ -104,11 +104,11 @@ void radar_on(WbDeviceTag radar_motor) {
      wb_motor_set_velocity(radar_motor, 0);
      radar_giro++;
      if (value_m_radar<=.5) {
-       printf("THA!\n");
+       printf("THA THAA THAAA!!!\n");
      } else if (value_m_radar<=1) {
        printf("THA THAA!!\n");
      } else if (value_m_radar<=1.25){
-       printf("THA THAA THAAA!!!\n");
+       printf("THA!\n");
      }
      if (radar_giro >= 60 && value_m_radar >= 2 )
      {
