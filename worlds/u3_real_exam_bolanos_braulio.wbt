@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.003400356057561287 0.9491046069309108 0.31494266570473295 3.1210988876045302
-  position -0.0565337765188193 1.8268323312645216 -1.9956277754496075
+  orientation 0.10101013365090869 0.9394497169017448 0.3274617264857941 3.7057133399869953
+  position -3.521783038849878 4.272004101382946 -4.369374102724051
   follow "robot"
   followOrientation TRUE
 }
@@ -209,8 +209,10 @@ Robot {
       name "distance_sensor_left"
       lookupTable [
         0 0 0
-        0.2 65535 0
+        0.05 0 0
+        0.4 255 0
       ]
+      resolution 1
     }
     HingeJoint {
       jointParameters HingeJointParameters {
@@ -243,8 +245,15 @@ Robot {
             ]
           }
         ]
+        name "distance_sensor_radar"
         physics Physics {
         }
+        lookupTable [
+          0 0 0
+          0.1 0 0
+          2 1023 0
+        ]
+        resolution 1
       }
     }
     Transform {
@@ -284,6 +293,12 @@ Robot {
             name "distance sensor(1)"
             physics Physics {
             }
+            lookupTable [
+              0 0 0
+              0.1 0 0
+              2 1023 0
+            ]
+            resolution 1
           }
         }
       ]
@@ -295,6 +310,21 @@ Robot {
   }
   controller "u3_real_exam"
 }
+Solid {
+  translation -1.5300000000000007 0 0
+  children [
+    DEF boxi Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+      }
+      geometry Box {
+        size 0.5 0.5 0.5
+      }
+    }
+  ]
+  boundingObject USE boxi
+}
 Nao {
-  translation -1.8100000000000012 0.334 0
+  translation -0.6060065381424626 0.33400746407009424 2.032031940480995
+  rotation -0.7745972394341558 0.4472139230501337 0.4472122803446862 1.823479425760901
 }
