@@ -10,13 +10,6 @@
 #define PI 3.1415
 #define OBSTACLE_DISTANCE .17
 
-enum {
-  GO,
-  TURN,
-  FREEWAY,
-  OBSTACLE
-};
-
 double encoder_left_1_1,encoder_left_1_dif;
 double encoder_left_2_1, encoder_left_2_dif;
 double encoder_right_1_1, encoder_right_1_dif;
@@ -76,6 +69,7 @@ void radar_on(WbDeviceTag radar_motor) {
   wheels[1] = wheel_right_1;
   wheels[2] = wheel_left_2;
   wheels[3] = wheel_right_2;
+  
   WbDeviceTag distance_radar = wb_robot_get_device("distance_sensor_radar");
   wb_motor_set_position(radar_motor, INFINITY);
   wb_motor_set_velocity(radar_motor, .5);
@@ -93,28 +87,28 @@ void radar_on(WbDeviceTag radar_motor) {
      wb_motor_set_position(gun_motor, (pos_radar-3.1416));
      wb_motor_set_velocity(radar_motor, 0);
 
-   }
-   if (radar_giro>=1){
-     stopRobot(wheels);
-     wb_motor_set_position(radar_motor, INFINITY);
-     wb_motor_set_velocity(radar_motor, 0);
-     radar_giro++;
-     if (value_m_radar<=.5) {
-       printf("THA THAA THAAA!!!\n");
-     } else if (value_m_radar<=1) {
-       printf("THA THAA!!\n");
-     } else if (value_m_radar<=1.25){
-       printf("THA!\n");
-     }
-     if (radar_giro >= 60 && value_m_radar >= 2 )
-     {
-       radar_giro = 0;
-       wb_motor_set_position(radar_motor, INFINITY);
-       wb_motor_set_velocity(radar_motor, .5);
-     }
-   }
+  }
+  if (radar_giro>=1){
+    stopRobot(wheels);
+    wb_motor_set_position(radar_motor, INFINITY);
+    wb_motor_set_velocity(radar_motor, 0);
+    radar_giro++;
+    if (value_m_radar<=.5) {
+      printf("THA THAA THAAA!!!\n");
+    } else if (value_m_radar<=1) {
+        printf("THA THAA!!\n");
+    } else if (value_m_radar<=1.25) {
+        printf("THA!\n");
+    }
+    if (radar_giro >= 60 && value_m_radar >= 2 )
+    {
+      radar_giro = 0;
+      wb_motor_set_position(radar_motor, INFINITY);
+      wb_motor_set_velocity(radar_motor, .5);
+    }
+  }
 }
-void checkForObstacles(WbDeviceTag distance_sensor_left){
+void checkForObstacles(WbDeviceTag distance_sensor_left) {
   WbDeviceTag wheel_left_1  = wb_robot_get_device("motor_wheel_left_1");
   WbDeviceTag wheel_left_2  = wb_robot_get_device("motor_wheel_left_2");
   WbDeviceTag wheel_right_1 = wb_robot_get_device("motor_wheel_right_1");
@@ -125,19 +119,18 @@ void checkForObstacles(WbDeviceTag distance_sensor_left){
   wheels[1] = wheel_right_1;
   wheels[2] = wheel_left_2;
   wheels[3] = wheel_right_2;
+  
   dis_value_left = wb_distance_sensor_get_value(distance_sensor_left);
   value_cm_left = ((dis_value_left *.4)/255);
   if (value_cm_left<=0.2 ) {
      turn_l++;
-   }
-   if (turn_l>=1 && turn_l<=50){
-     turnRight(wheels);
-     turn_l++;
-   }
-
-   else {
-     turn_l=0;
-   }
+  }
+  if (turn_l>=1 && turn_l<=50){
+    turnRight(wheels);
+    turn_l++;
+  } else {
+      turn_l=0;
+    }
 }
 
 int main(int argc, char **argv)
@@ -166,7 +159,6 @@ WbDeviceTag Gun_encoder     = wb_robot_get_device("Gun_encoder");
 
 WbDeviceTag distance_sensor_left  = wb_robot_get_device("distance_sensor_left");
 WbDeviceTag distance_radar = wb_robot_get_device("distance_sensor_radar");
-/*WbDeviceTag distance_sensor_gun   = wb_robot_get_device("gun_distance_sensor");*/
 
 wb_position_sensor_enable(encoder_left_1, TIME_STEP);
 wb_position_sensor_enable(encoder_right_1, TIME_STEP);
@@ -182,10 +174,6 @@ while (wb_robot_step(TIME_STEP) != -1) {
   goRobot(wheels);
   radar_on(radar_motor);
   checkForObstacles(distance_sensor_left);
-
-
-
-
 }
 
 wb_robot_cleanup();
