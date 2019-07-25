@@ -1,0 +1,25 @@
+To fully achieve the 3 phases of the shoot, you need to move the Nao backwards, after it’s recognized the first time,
+with Down in the arrows twice, for the nearest shoot move the nao to the right with the arrows three times and
+the tank will move. 
+
+Distance Sensor:
+Resolution: 10 bits
+
+Look Up Table Resolution:		2^(10)-1 = 1023
+
+  0 	      	0  	  	0                             
+ 0.10	     	0    	  	0
+  2     	1023   	0
+
+Range Given from 0.10 to 2 m.
+
+Mobile Sensor:
+
+Resolution: 8 bits
+Look Up Table:		2^(8)-1 = 255               
+
+   0     	0	    	0                 
+ 0.05    	0    		0
+  0.4    	255		0
+
+Range Given from: 0.05 to 0.4 cm.
