@@ -76,19 +76,19 @@ void radar_on(WbDeviceTag radar_motor) {
   dis_radar = wb_distance_sensor_get_value(distance_radar);
   value_m_radar = ((dis_radar *2)/1023);
   if (value_m_radar<=1.5 ) {
-     stopRobot(wheels);
-     wb_motor_set_position(radar_motor, INFINITY);
-     wb_motor_set_velocity(radar_motor, 0);
-     radar_giro++;
-     WbDeviceTag Radar_encoder = wb_robot_get_device("Radar_encoder");
-     WbDeviceTag gun_motor     = wb_robot_get_device("Gun_motor");
-     pos_radar=wb_position_sensor_get_value(Radar_encoder);
-     wb_motor_set_velocity(radar_motor, .01);
-     wb_motor_set_position(gun_motor, (pos_radar-3.1416));
-     wb_motor_set_velocity(radar_motor, 0);
+    stopRobot(wheels);
+    wb_motor_set_position(radar_motor, INFINITY);
+    wb_motor_set_velocity(radar_motor, 0);
+    radar_giro++;
+    WbDeviceTag Radar_encoder = wb_robot_get_device("Radar_encoder");
+    WbDeviceTag gun_motor     = wb_robot_get_device("Gun_motor");
+    pos_radar=wb_position_sensor_get_value(Radar_encoder);
+    wb_motor_set_velocity(radar_motor, .01);
+    wb_motor_set_position(gun_motor, (pos_radar-3.1416));
+    wb_motor_set_velocity(radar_motor, 0);
 
   }
-  if (radar_giro>=1){
+  if (radar_giro>=1) {
     stopRobot(wheels);
     wb_motor_set_position(radar_motor, INFINITY);
     wb_motor_set_velocity(radar_motor, 0);
@@ -130,7 +130,7 @@ void checkForObstacles(WbDeviceTag distance_sensor_left) {
     turn_l++;
   } else {
       turn_l=0;
-    }
+  }
 }
 
 int main(int argc, char **argv)
